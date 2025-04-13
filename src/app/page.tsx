@@ -1,103 +1,86 @@
-import Image from "next/image";
+"use client";
+import React, { useEffect, useState } from "react";
+import { Sparkles, RefreshCw, XCircle } from "lucide-react"; // Icons from Lucide
+import { prompts } from "@/lib/utils";
+import Router from "next/router";
+import { useRouter } from "next/navigation";
 
-export default function Home() {
+const page = () => {
+  
+  const router = useRouter();
+  const handleGenerateNotes = () => {
+    if (userPrompt) {
+      localStorage.setItem("userPrompt", userPrompt);
+      router.push("/notes");
+    }else {
+      alert("Please enter a prompt");
+    }
+  }
+
+  const [samplePrompt, setSamplePrompt] = useState("");
+  const [typedPrompt, setTypedPrompt] = useState("");
+  const [userPrompt, setUserPrompt] = useState("");
+
+  const triggerTypingEffect = (text: string) => {
+    let i = 0;
+    const typing = setInterval(() => {
+      setTypedPrompt(text.slice(0, i + 1));
+      i++;
+      if (i >= text.length) clearInterval(typing);
+    }, 30);
+  };
+
+  const surprisePrompt = () => {
+    const randomPrompt = prompts[Math.floor(Math.random() * prompts.length)];
+    setSamplePrompt(randomPrompt);
+    triggerTypingEffect(randomPrompt);
+  };
+
+  useEffect(() => {
+    surprisePrompt(); // Initial load
+  }, []);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="h-screen flex justify-center items-center w-full bg-[radial-gradient(circle_at_center,_#353535,_#000)]">
+      <div className="flex flex-col gap-3 w-[40%] rounded-4xl bg-[#0B0B0B] p-4">
+        <textarea
+          name="input"
+          id="input"
+          rows={4}
+          className="focus:outline-none resize-none text-[#c5c2c2] rounded-xl p-3 text-lg bg-[#121212] placeholder:text-[#555]"
+          placeholder={typedPrompt}
+          onChange={(e) => setUserPrompt(e.target.value)}
+        ></textarea>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+        {/* Icon Buttons */}
+        <div className="flex justify-between">
+          <div className="flex gap-2">
+            <button
+              onClick={() => setTypedPrompt("")}
+              className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold bg-[#1f1f1f] text-white hover:bg-[#2a2a2a]"
+            >
+              <XCircle size={18} />
+              Clear
+            </button>
+
+            <button
+              onClick={surprisePrompt}
+              className="flex items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold bg-[#1f1f1f] text-white hover:bg-[#2a2a2a]"
+            >
+              <RefreshCw size={18} />
+              Surprise Me
+            </button>
+          </div>
+
+          <button onClick={handleGenerateNotes} className="flex cursor-pointer items-center gap-2 px-4 py-2 rounded-md text-sm font-semibold bg-[#5e0468] text-white duration-200 hover:bg-[#5e0468b1]">
+            <Sparkles size={18} />
+            Generate Notes
+          </button>
+
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
-}
+};
+
+export default page;

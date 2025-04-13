@@ -1,0 +1,20 @@
+export const prompts = [
+  "Generate a complete course on GraphQL from beginner to advanced",
+  "Make detailed notes on how WebRTC works with examples",
+  "Create a learning roadmap and notes for mastering Redis",
+  "Give me comprehensive notes on GitHub Actions with real-world workflows",
+  "Generate course content on OAuth2 with clear step-by-step flows",
+  "Compare REST and GraphQL with code examples and use cases",
+  "Create a full roadmap for learning Docker and Kubernetes with notes",
+  "Explain the architecture of React Native in detailed notes",
+  "Build structured course notes on WebAssembly and its real-world usage",
+  "Make detailed notes on TypeScript generics with advanced examples",
+  "Explain how DNS works in an easy-to-follow course format",
+  "Break down what happens when you type a URL, in course-like notes",
+  "Build a beginner-to-pro course on compilers",
+  "Explain JavaScript's event loop with detailed course notes",
+  "Give me a learning roadmap and notes to become a cloud engineer",
+  "Generate a detailed course on distributed systems with real-world patterns",
+  "Make notes comparing Microservices and Monoliths in a structured format",
+];
+
