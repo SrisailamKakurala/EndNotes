@@ -1,9 +1,12 @@
-// @main/page.tsx
-import React from 'react'
+"use client"
+import React, { useEffect } from 'react'
 import { Stars } from 'lucide-react'
-const Page = async () => {
-  // Simulate a delay of 2 seconds
-  await new Promise(resolve => setTimeout(resolve, 500));
+const Page = () => {
+  
+  useEffect(() => {
+    const userPrompt = localStorage.getItem('userPrompt');
+    console.log("Main: " , userPrompt);
+  }, []);
 
   return (
     <div className="w-[75%] h-full bg-[#212121] rounded-2xl p-6 overflow-y-auto relative">

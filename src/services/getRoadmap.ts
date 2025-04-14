@@ -1,13 +1,23 @@
 import { getRoadmapPrompt } from "@/lib/prompts";
 
-export const getRoadmap = (userPrompt: string) => {
+export const getRoadmap = async (userPrompt: string) => {
 
     // get the prompt
-    const prompt = getRoadmapPrompt(userPrompt);
+    const systemPrompt = getRoadmapPrompt(userPrompt);
 
-    // get the response from llm
-    let roadmapReadme = 'yo yo';
-    let roadmapJSON = 'hi hello ';
-
-    return { roadmapReadme, roadmapJSON };
+    const res = await fetch("/api/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userPrompt, systemPrompt }),
+    });
+    
+    const { response } = await res.json();
+    
+    try {
+        const data = JSON.parse(response);
+        console.log("README MARKDOWN:", data.readme);
+        console.log("ROADMAP JSON:", data.roadmapjson);
+    } catch (err) {
+        console.error("Failed to parse AI JSON response:", err);
+    }
 }
