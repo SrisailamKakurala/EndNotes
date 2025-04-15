@@ -1,6 +1,6 @@
 'use client';
 import { MessageCircle, SendHorizonal } from "lucide-react";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 interface Message {
   msg: string;
@@ -11,18 +11,22 @@ const ChatUI = ({ msg, role }: { msg: string; role: "user" | "llm" }) => {
   const [messages, setMessages] = useState<Message[]>([]); // start empty
   const [input, setInput] = useState("");
 
+  const hasReplied = useRef(false);
+
   useEffect(() => {
-    // Push initial user message from props
+    if (hasReplied.current) return;
+
     setMessages([{ msg, role }]);
 
-    // Then simulate LLM response
     setTimeout(() => {
       const llmResponse: Message = {
-        msg: `Got it! let’s Genearate a roadmap first!`,
+        msg: `Got it! let’s Generate a roadmap first!`,
         role: "llm",
       };
       setMessages((prev) => [...prev, llmResponse]);
     }, 500);
+
+    hasReplied.current = true;
   }, [msg, role]);
 
   const handleSend = () => {
@@ -33,7 +37,7 @@ const ChatUI = ({ msg, role }: { msg: string; role: "user" | "llm" }) => {
 
     setTimeout(() => {
       const llmResponse: Message = {
-        msg: `You said: "${input}" – here's something to get you started!`,
+        msg: `I'm working on it!`,
         role: "llm",
       };
       setMessages((prev) => [...prev, llmResponse]);

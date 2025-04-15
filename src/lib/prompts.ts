@@ -56,9 +56,21 @@ export const getRoadmapPrompt = (userPrompt: string) => {
 
     NOTE: **make sure u only return json object and nothing before or after.**
     NOTE: **the Roadmap should be comprehensive and beginner to advanced.**
+    NOTE: **Divide the Entire portion in to 8 phases!! strictly.**
 
 
     userPrompt: ${userPrompt}
+    `;
+
+    return prompt;
+}
+
+export const getNotesPrompt = () => {
+    const prompt = `give a brief notes for the following concepts:
+    
+    explain as if i'm a beginner and explain every method.. and the notes should be comprehensive.
+
+    and i need bullet points before every list/subphase with * or -.
     `;
 
     return prompt;

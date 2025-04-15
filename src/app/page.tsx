@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import { Sparkles, RefreshCw, XCircle } from "lucide-react"; // Icons from Lucide
 import { prompts } from "@/lib/utils";
-import Router from "next/router";
 import { useRouter } from "next/navigation";
 
 const page = () => {
