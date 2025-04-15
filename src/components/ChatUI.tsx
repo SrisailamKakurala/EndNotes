@@ -15,19 +15,23 @@ const ChatUI = ({ msg, role }: { msg: string; role: "user" | "llm" }) => {
 
   useEffect(() => {
     if (hasReplied.current) return;
-
-    setMessages([{ msg, role }]);
-
-    setTimeout(() => {
-      const llmResponse: Message = {
-        msg: `Got it! let’s Generate a roadmap first!`,
-        role: "llm",
-      };
-      setMessages((prev) => [...prev, llmResponse]);
-    }, 500);
-
+  
+    const initialMessage: Message = { msg, role };
+    setMessages([initialMessage]);
+  
+    if (role === "user") {
+      setTimeout(() => {
+        const llmResponse: Message = {
+          msg: `Got it! let’s Generate a roadmap first!`,
+          role: "llm",
+        };
+        setMessages((prev) => [...prev, llmResponse]);
+      }, 500);
+    }
+  
     hasReplied.current = true;
   }, [msg, role]);
+  
 
   const handleSend = () => {
     if (!input.trim()) return;

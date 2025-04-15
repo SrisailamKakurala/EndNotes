@@ -114,10 +114,10 @@ const Page = () => {
           document.body.removeChild(link);
           URL.revokeObjectURL(url);
         }}
-        className="rounded-lg z-50 px-5 py-2 flex items-center justify-center gap-2 bg-black hover:bg-[#121212] duration-150 fixed bottom-10 right-15 w-fit cursor-pointer"
+        className="rounded-lg border-2 border-red-600 z-50 px-5 py-2 flex items-center justify-center gap-2 bg-black hover:bg-[#121212] duration-150 fixed bottom-10 right-15 w-fit cursor-pointer"
       >
         <Download className="text-blue-500" />
-        <p className="text-md font-bold text-slate-200 mb-0!">Download Notes</p>
+        <p className="text-md font-bold text-red-500 mb-0!">Download Notes</p>
       </div>
       ) : (
       <div onClick={generateAllNotes} className="rounded-lg z-50 px-5 py-2 flex items-center justify-center gap-2 bg-black hover:bg-[#121212] duration-150 fixed bottom-10 right-15 w-fit cursor-pointer">
