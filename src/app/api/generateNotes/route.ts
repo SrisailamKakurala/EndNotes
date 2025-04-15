@@ -35,7 +35,7 @@ export async function POST(req: Request) {
 
     let rawText = result.response.text();
 
-    rawText = rawText.replace(/```json\n?/gi, "").replace(/```/g, "").trim();
+    rawText = rawText.replace(/^```[a-z]*\n?/i, "").replace(/```$/, "").trim();
 
     console.log(rawText);
     

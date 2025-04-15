@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Stars } from "lucide-react";
+import { Download, Stars } from "lucide-react";
 import { getRoadmap } from "@/services/getRoadmap";
 import Loading from "./loading";
 import ReactMarkdown from "react-markdown";
@@ -102,7 +102,23 @@ const Page = () => {
 
     {
       generatedNotes ? (
-        <></>
+        <div
+        onClick={() => {
+          const blob = new Blob([generatedNotes], { type: "text/markdown" });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "generated_notes.md";
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }}
+        className="rounded-lg z-50 px-5 py-2 flex items-center justify-center gap-2 bg-black hover:bg-[#121212] duration-150 fixed bottom-10 right-15 w-fit cursor-pointer"
+      >
+        <Download className="text-blue-500" />
+        <p className="text-md font-bold text-slate-200 mb-0!">Download Notes</p>
+      </div>
       ) : (
       <div onClick={generateAllNotes} className="rounded-lg z-50 px-5 py-2 flex items-center justify-center gap-2 bg-black hover:bg-[#121212] duration-150 fixed bottom-10 right-15 w-fit cursor-pointer">
         <p className="text-md font-bold text-slate-200 mb-0!">Make Notes</p>

@@ -34,7 +34,7 @@ export async function POST(req: Request) {
     let rawText = result.response.text();
 
     // Remove ```json, ``` and any other ```lang-style code blocks
-    rawText = rawText.replace(/```[a-z]*\n?/gi, "").replace(/```/g, "").trim();
+    rawText = rawText.replace(/^```[a-z]*\n?/i, "").replace(/```$/, "").trim();
 
     return NextResponse.json({ response: rawText });
   } catch (error) {
