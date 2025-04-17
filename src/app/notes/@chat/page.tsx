@@ -9,7 +9,7 @@ const Chat = () => {
       useEffect(() => {
           const userPrompt = localStorage.getItem("userPrompt");
           setUserPrompt(userPrompt!);
-    })
+      }, []);
 
     return (
         <>

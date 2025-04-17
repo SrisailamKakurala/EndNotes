@@ -29,7 +29,6 @@ type RoadmapJSON = Record<string, Phase>;
 
 const Page = () => {
   const [readme, setReadme] = useState<string>("");
-  const [roadmapJson, setRoadmapJson] = useState();
   const [generatedNotes, setGeneratedNotes] = useState<string>();
   const [loading, setLoading] = useState(false);
 
@@ -90,15 +89,22 @@ const Page = () => {
   return (
     <div className="markdown-body w-[75%] h-full bg-[#212121] rounded-2xl p-12 overflow-y-auto relative text-white">
   
-    {
-      generatedNotes ? <ReactMarkdown children={generatedNotes} remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]} /> : (
-        <ReactMarkdown
-          children={readme}
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
-        />
-      )
-    }
+  {generatedNotes ? (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
+    >
+      {generatedNotes}
+    </ReactMarkdown>
+  ) : (
+    <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
+      rehypePlugins={[rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings]}
+    >
+      {readme}
+    </ReactMarkdown>
+  )}
+
 
     {
       generatedNotes ? (

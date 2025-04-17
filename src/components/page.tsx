@@ -1,6 +1,6 @@
 "use client"
 import ChatUI from '@/components/ChatUI';
-import { getRoadmap } from '@/lib/prompts';
+import { getRoadmapPrompt } from '@/lib/prompts';
 import React, { useEffect, useState } from 'react'
 
 const Notes = () => {
@@ -8,11 +8,7 @@ const Notes = () => {
   useEffect(() => {
       const userPrompt = localStorage.getItem("userPrompt");
       setUserPrompt(userPrompt!);
-
-      // generate roadmap with llm
-      const { roadmapReadme, roadmapJSON } = getRoadmap(userPrompt!);
-      console.log(roadmapReadme, roadmapJSON);
-  })
+  }, [])
   return (
     <div className='w-full h-screen p-8 bg-black'>
         <div className="h-full flex gap-5">
