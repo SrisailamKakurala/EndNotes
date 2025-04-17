@@ -1,6 +1,5 @@
 "use client"
 import ChatUI from '@/components/ChatUI';
-import { getRoadmapPrompt } from '@/lib/prompts';
 import React, { useEffect, useState } from 'react'
 
 const Notes = () => {
